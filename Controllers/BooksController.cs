@@ -41,5 +41,19 @@ namespace LibraryApi
             }
         }
 
+        [HttpPost]
+        public ActionResult<IEnumerable<Book>> Create([FromBody] Book newBook)
+        {
+            try
+            {
+                FakeDB.Books.Add(newBook);
+                return Created($"api/books/{newBook.Id}", newBook);
+            }
+            catch (System.Exception err)
+            {
+                return BadRequest(err);
+            }
+        }
+
     }
 }
