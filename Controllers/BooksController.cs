@@ -23,7 +23,23 @@ namespace LibraryApi
             }
         }
 
-
+        [HttpGet("{bookId}")]
+        public ActionResult<IEnumerable<Book>> GetOne(string bookId)
+        {
+            try
+            {
+                Book foundBook = FakeDB.Books.Find(book => book.Id == bookId);
+                if (foundBook == null)
+                {
+                    throw new Exception("Invalid Id");
+                }
+                return Ok(foundBook);
+            }
+            catch (System.Exception err)
+            {
+                return BadRequest(err);
+            }
+        }
 
     }
 }
