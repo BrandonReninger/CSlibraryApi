@@ -10,8 +10,9 @@ namespace LibraryApi
         [Required]
         public string Platform { get; set; }
         public string Rating { get; set; }
-        [Range(1, 100)]
-        public decimal Price { get; private set; }
+        //[Range(1, 100)]
+        [Required]
+        public decimal Price { get; set; }
         public string Id { get; private set; }
 
         public VideoGame()
