@@ -19,7 +19,7 @@ namespace LibraryApi
             }
             catch (Exception err)
             {
-                return BadRequest(err);
+                return BadRequest(err.Message);
             }
         }
 
@@ -37,7 +37,7 @@ namespace LibraryApi
             }
             catch (System.Exception err)
             {
-                return BadRequest(err);
+                return BadRequest(err.Message);
             }
         }
 
@@ -51,7 +51,26 @@ namespace LibraryApi
             }
             catch (System.Exception err)
             {
-                return BadRequest(err);
+                return BadRequest(err.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<string> Delete(string id)
+        {
+            try
+            {
+                Book bookBeGone = FakeDB.Books.Find(b => b.Id == id);
+                if (bookBeGone == null)
+                {
+                    throw new Exception("Invalid Id");
+                }
+                FakeDB.Books.Remove(bookBeGone);
+                return Ok("Deleted!");
+            }
+            catch (System.Exception err)
+            {
+                return BadRequest(err.Message);
             }
         }
 
