@@ -74,5 +74,27 @@ namespace LibraryApi
             }
         }
 
+        [HttpPut("{id}")]
+        public ActionResult<Book> Edit(string id, [FromBody] Book updatedBook)
+        {
+            try
+            {
+                Book bookToUpdate = FakeDB.Books.Find(b => b.Id == id);
+                if (bookToUpdate == null)
+                {
+                    throw new Exception("Invalid Id");
+                }
+                //NOTE add the needed logic if this wasn't a required field
+                bookToUpdate.Title = updatedBook.Title;
+                bookToUpdate.Author = updatedBook.Author;
+                //bookToUpdate.Available = updatedBook.Available;
+                return Ok(bookToUpdate);
+            }
+            catch (System.Exception err)
+            {
+                return BadRequest(err.Message);
+            }
+        }
+
     }
 }
